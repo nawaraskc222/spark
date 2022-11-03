@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:spark/constants.dart';
 import '../widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import '../application_state.dart';
 import 'error_page.dart';
 
@@ -67,7 +66,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your email',
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               TextField(
@@ -78,8 +77,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     //Do something with the user input.
                   },
                   decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter your password.')),
-              SizedBox(
+                      hintText: 'Enter your password .')),
+              const SizedBox(
                 height: 24.0,
               ),
               RoundedButton(

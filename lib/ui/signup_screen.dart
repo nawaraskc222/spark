@@ -4,8 +4,6 @@ import 'package:spark/constants.dart';
 import '../widgets/rounded_button.dart';
 import 'package:go_router/go_router.dart';
 
-import 'askname.dart';
-
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
   hintStyle: TextStyle(color: Colors.grey),
@@ -63,8 +61,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   },
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your email')),
-              // ignore: prefer_const_constructors
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               TextField(
@@ -75,7 +72,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     //Do something with the user input.
                   },
                   decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter your Password')),
+                      hintText: 'Enter your Password.')),
               const SizedBox(
                 height: 24.0,
               ),
@@ -91,7 +88,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         email: email, password: password);
                     if (newUser != null) {
                       //Navigator.pushNamed(context, 'home_screen');
-                    }
+
+                      // Navigator.pushNamed(context, 'askname');
+                      context.goNamed(askRoutename);
+                    } else {}
                   } catch (e) {
                     print(e);
                   }

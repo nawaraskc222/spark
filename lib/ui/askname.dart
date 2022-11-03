@@ -1,6 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../constants.dart';
+
+// ignore: camel_case_types
 class askname extends StatefulWidget {
   const askname({Key? key}) : super(key: key);
 
@@ -11,12 +16,30 @@ class askname extends StatefulWidget {
 }
 
 class _asknameState extends State<askname> {
+  TextEditingController fname = TextEditingController();
+
+  TextEditingController lname = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    fname.dispose();
+    lname.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "about ",
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          color: Colors.black,
+          onPressed: () {
+            context.goNamed(createAccountRouteName);
+          },
         ),
       ),
       backgroundColor: Colors.grey[350],
@@ -41,6 +64,7 @@ class _asknameState extends State<askname> {
               child: Column(
                 children: [
                   TextField(
+                    controller: fname,
                     decoration: InputDecoration(
                         fillColor: Colors.amber,
                         filled: true,
@@ -55,6 +79,7 @@ class _asknameState extends State<askname> {
                   ),
 
                   TextField(
+                    controller: lname,
                     // obscureText: true, thi used for password
                     decoration: InputDecoration(
                         fillColor: Colors.amber,
@@ -88,6 +113,8 @@ class _asknameState extends State<askname> {
                 //   context,
                 //   MaterialPageRoute(builder: (context) => const Register()),
                 // );
+
+                _create();
               },
               style: TextButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 171, 169, 161),
@@ -98,16 +125,32 @@ class _asknameState extends State<askname> {
               ),
             ),
           ),
-          // Row(
-          //   children: const [
-          //     TextButton(
-          //       onPressed: null,
-          //       child: Text("sign in"),
-          //     ),
-          //   ],
-          // )
         ],
       ),
     );
+  }
+
+  // void createUser({required String name}) {}
+  Future _create() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        final userCollection =
+            FirebaseFirestore.instance.collection("usersname");
+
+        final docRef = userCollection.doc("u-id");
+        await docRef.set({"fname": fname.text, "lname": lname.text});
+      } catch (e) {
+        print("rooroe");
+      }
+      // Navigator.pushNamed(context, "/AskNumberRouteName");
+      context.goNamed(AskNumberRouteName);
+    }
+
+    // FirebaseFirestore.instance.collection('users').add(<String, dynamic>{
+    //   'name': fname.text,
+    //   'userId': lname.text,
+    // });
   }
 }

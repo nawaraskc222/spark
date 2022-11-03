@@ -4,6 +4,7 @@ import 'package:spark/constants.dart';
 import 'package:spark/ui/signin_screen.dart';
 import '../ui/askname.dart';
 import '../ui/error_page.dart';
+import '../ui/number.dart';
 import '../ui/signup_screen.dart';
 import '../application_state.dart';
 import '../ui/first_screen.dart';
@@ -32,7 +33,7 @@ class MyRouter {
           path: '/loggedOut',
           pageBuilder: (context, state) => MaterialPage<void>(
             key: state.pageKey,
-            child: LoggedOutScreen(),
+            child: const LoggedOutScreen(),
           ),
         ),
         GoRoute(
@@ -41,6 +42,30 @@ class MyRouter {
           pageBuilder: (context, state) => MaterialPage<void>(
             key: state.pageKey,
             child: RegistrationScreen(),
+          ),
+        ),
+        GoRoute(
+          name: askRoutename,
+          path: '/askname',
+          pageBuilder: (context, state) => MaterialPage<void>(
+            key: state.pageKey,
+            child: const askname(),
+          ),
+        ),
+        GoRoute(
+          name: signInRouteName,
+          path: '/signIn',
+          pageBuilder: (context, state) => MaterialPage<void>(
+            key: state.pageKey,
+            child: SignInScreen(),
+          ),
+        ),
+        GoRoute(
+          name: AskNumberRouteName,
+          path: '/AskNumber',
+          pageBuilder: (context, state) => MaterialPage<void>(
+            key: state.pageKey,
+            child: const AskNumber(),
           ),
         ),
 
@@ -52,14 +77,8 @@ class MyRouter {
         //     child: HomeScreen(),
         //   ),
         // ),
-        GoRoute(
-          name: signInRouteName,
-          path: '/signIn',
-          pageBuilder: (context, state) => MaterialPage<void>(
-            key: state.pageKey,
-            child: SignInScreen(),
-          ),
-        ),
+
+//
       ],
       errorPageBuilder: (context, state) => MaterialPage<void>(
             key: state.pageKey,

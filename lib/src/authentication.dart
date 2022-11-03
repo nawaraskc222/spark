@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:spark/constants.dart';
-import 'package:spark/ui/signin_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../widgets/rounded_button.dart';
 import '../widgets/widgets.dart';
@@ -56,8 +55,21 @@ class Authentication extends StatelessWidget {
           margin: const EdgeInsets.all(10.0),
           child: SafeArea(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Container(
+                  child: const Text(
+                    "Welcome to Tinder Application ",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40),
+                  ),
+                ),
+                // ignore: prefer_const_constructors
+                SizedBox(
+                  height: 200,
+                ),
                 Container(
                   child: RoundedButton(
                       colour: Colors.blueAccent,
@@ -71,9 +83,9 @@ class Authentication extends StatelessWidget {
                 Container(
                   child: RoundedButton(
                       colour: Colors.blueAccent,
-                      title: 'Create Account demo',
+                      title: 'Create Account',
                       onPressed: () {
-                        context.goNamed(createAccountRouteName);
+                        context.goNamed(askRoutename);
                       }),
                 ),
               ],

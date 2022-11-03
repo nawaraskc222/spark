@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../constants.dart';
+
 import '../widgets/rounded_button.dart';
 
 class LoggedOutScreen extends StatelessWidget {
@@ -31,7 +30,7 @@ class LoggedOutScreen extends StatelessWidget {
           Container(
             child: RoundedButton(
                 colour: Colors.blueAccent,
-                title: 'Create Account demo',
+                title: 'Create Account demo Account',
                 onPressed: () {}),
           ),
         ],
