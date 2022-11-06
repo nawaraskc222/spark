@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:spark/constants.dart';
-import '../widgets/rounded_button.dart';
-import 'package:go_router/go_router.dart';
+import 'package:spark/login_state.dart';
+import 'rounded_button.dart';
+import '../login_state.dart';
 
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
@@ -35,19 +35,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.black,
-          onPressed: () {
-            context.goNamed(rootRouteName);
-          },
-        ),
-      ),
       backgroundColor: Colors.white,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   },
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your email')),
-              const SizedBox(
+              SizedBox(
                 height: 8.0,
               ),
               TextField(
@@ -72,8 +63,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     //Do something with the user input.
                   },
                   decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter your Password.')),
-              const SizedBox(
+                      hintText: 'Enter your Password')),
+              SizedBox(
                 height: 24.0,
               ),
               RoundedButton(
@@ -88,10 +79,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         email: email, password: password);
                     if (newUser != null) {
                       //Navigator.pushNamed(context, 'home_screen');
-
-                      // Navigator.pushNamed(context, 'askname');
-                      context.goNamed(askRoutename);
-                    } else {}
+                    }
                   } catch (e) {
                     print(e);
                   }

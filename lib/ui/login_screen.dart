@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:go_router/go_router.dart';
 import 'rounded_button.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter/material.dart';
-import '../router/routes.dart';
 
 //code for designing the UI of our text field where the user writes his email id or password
 
@@ -22,23 +21,23 @@ const kTextFieldDecoration = InputDecoration(
       borderRadius: BorderRadius.all(Radius.circular(32.0)),
     ));
 
-class SignInScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _SignInScreenState createState() => _SignInScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 final _auth = FirebaseAuth.instance;
 
-class _SignInScreenState extends State<SignInScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   late String email;
   late String password;
   bool showSpinner = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -81,7 +80,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       final user = await _auth.signInWithEmailAndPassword(
                           email: email, password: password);
                       if (user != null) {
-                        //context.goNamed(homeRouteName);
+                        Navigator.pushNamed(context, 'home_screen');
                       }
                     } catch (e) {
                       print(e);

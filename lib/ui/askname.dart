@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -108,13 +109,13 @@ class _asknameState extends State<askname> {
                 right: 34,
                 left: 130),
             child: TextButton(
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const Register()),
-                // );
+              onPressed: () async {
+                // DatabaseReference ref = FirebaseDatabase.instance.ref("users");
 
-                _create();
+                // await ref.set({
+                //   "name": "John",
+                //   "age": 18,
+                // });
               },
               style: TextButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 171, 169, 161),
@@ -129,28 +130,100 @@ class _asknameState extends State<askname> {
       ),
     );
   }
-
-  // void createUser({required String name}) {}
-  Future _create() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      try {
-        final userCollection =
-            FirebaseFirestore.instance.collection("usersname");
-
-        final docRef = userCollection.doc("u-id");
-        await docRef.set({"fname": fname.text, "lname": lname.text});
-      } catch (e) {
-        print("rooroe");
-      }
-      // Navigator.pushNamed(context, "/AskNumberRouteName");
-      context.goNamed(AskNumberRouteName);
-    }
-
-    // FirebaseFirestore.instance.collection('users').add(<String, dynamic>{
-    //   'name': fname.text,
-    //   'userId': lname.text,
-    // });
-  }
 }
+
+//   // void createUser({required String name}) {}
+//   // Future _create() async {
+//   //   final user = FirebaseAuth.instance.currentUser;
+
+//   //   if (user != null) {
+//   //     try {
+//   //       final userCollection =
+//   //           FirebaseFirestore.instance.collection("usersname");
+
+//   //       final docRef = userCollection.doc("u-id");
+//   //       await docRef.set({"fname": fname.text, "lname": lname.text});
+//   //     } catch (e) {
+//   //       print("rooroe");
+//   //     }
+
+//   //     context.goNamed(askNumberRouteName);
+//   //   }
+
+//   // FirebaseFirestore.instance.collection('users').add(<String, dynamic>{
+//   //   'name': fname.text,
+//   //   'userId': lname.text,
+//   // });
+// }
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+
+// class askname extends StatelessWidget {
+//   // final String fullName;
+//   // final String company;
+//   // final int age;
+
+//   // askname(this.fullName, this.company, this.age);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // Create a CollectionReference called users that references the firestore collection
+//     CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+//     Future<void> addUser() {
+//       // Call the user's CollectionReference to add a new user
+//       return users
+//           .add({
+//             'full_name': "fullName", // John Doe
+//             'company': "company", // Stokes and Sons
+//             'age': 42 // 42
+//           })
+//           .then((value) => print("User Added"))
+//           .catchError((error) => print("Failed to add user: $error"));
+//     }
+
+//     return TextButton(
+//       onPressed: addUser,
+//       child: const Text(
+//         "Add User",
+//       ),
+//     );
+//   }
+// }
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/cupertino.dart';
+
+// class askname extends StatelessWidget {
+//   late final String documentId;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+//     return FutureBuilder<DocumentSnapshot>(
+//       future: users.doc(documentId).get(),
+//       builder:
+//           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+//         if (snapshot.hasError) {
+//           return Text("Something went wrong");
+//         }
+
+//         if (snapshot.hasData && !snapshot.data!.exists) {
+//           return Text("Document does not exist");
+//         }
+
+//         if (snapshot.connectionState == ConnectionState.done) {
+//           Map<String, dynamic> data =
+//               snapshot.data!.data() as Map<String, dynamic>;
+//           return Text(
+//               "Full Name: ${data['full_name']} ${data['age']} ${data['company']}");
+//         }
+
+//         return Text("loading");
+//       },
+//     );
+//   }
+// }

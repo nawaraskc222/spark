@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spark/constants.dart';
 import 'package:spark/ui/signin_screen.dart';
-import '../ui/askname.dart';
+import '../login_state.dart';
+import '../ui/ask_name.dart';
 import '../ui/error_page.dart';
-import '../ui/number.dart';
+import '../ui/initialapp_page.dart';
 import '../ui/signup_screen.dart';
-import '../application_state.dart';
-import '../ui/first_screen.dart';
-import '../ui/initializeAppWAuthentication.dart';
+import '../ui/home_screen.dart';
+import '../ui/signin_screen.dart';
 
 class MyRouter {
-  final ApplicationState applicationState;
+  final LoginState loginState;
 
-  MyRouter(this.applicationState);
+  MyRouter(this.loginState);
 
   late final router = GoRouter(
-      refreshListenable: applicationState,
+      refreshListenable: loginState,
       debugLogDiagnostics: true,
       urlPathStrategy: UrlPathStrategy.path,
       routes: [
@@ -29,14 +29,6 @@ class MyRouter {
           ),
         ),
         GoRoute(
-          name: loggedOutRouteName,
-          path: '/loggedOut',
-          pageBuilder: (context, state) => MaterialPage<void>(
-            key: state.pageKey,
-            child: const LoggedOutScreen(),
-          ),
-        ),
-        GoRoute(
           name: createAccountRouteName,
           path: '/create-account',
           pageBuilder: (context, state) => MaterialPage<void>(
@@ -45,11 +37,11 @@ class MyRouter {
           ),
         ),
         GoRoute(
-          name: askRoutename,
-          path: '/askname',
+          name: homeRouteName,
+          path: '/home',
           pageBuilder: (context, state) => MaterialPage<void>(
             key: state.pageKey,
-            child: const askname(),
+            child: HomeScreen(),
           ),
         ),
         GoRoute(
@@ -60,25 +52,6 @@ class MyRouter {
             child: SignInScreen(),
           ),
         ),
-        GoRoute(
-          name: AskNumberRouteName,
-          path: '/AskNumber',
-          pageBuilder: (context, state) => MaterialPage<void>(
-            key: state.pageKey,
-            child: const AskNumber(),
-          ),
-        ),
-
-        // GoRoute(
-        //   name: homeRouteName,
-        //   path: '/home',
-        //   pageBuilder: (context, state) => MaterialPage<void>(
-        //     key: state.pageKey,
-        //     child: HomeScreen(),
-        //   ),
-        // ),
-
-//
       ],
       errorPageBuilder: (context, state) => MaterialPage<void>(
             key: state.pageKey,
@@ -89,7 +62,7 @@ class MyRouter {
       redirect: (state) {
         // final createAccountLoc = state.namedLocation(createAccountRouteName);
         // final creatingAccount = state.subloc == createAccountLoc;
-        // final loggedIn = ApplicationState.loggedIn;
+        // final loggedIn = loginState.loggedIn;
 
         // if (!loggedIn || !creatingAccount) return createAccountLoc;
         return null;
